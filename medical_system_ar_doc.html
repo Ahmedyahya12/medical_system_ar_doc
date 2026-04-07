@@ -1,329 +1,738 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تصور نظام إدارة المواعيد والخدمات الطبية</title>
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&display=swap');
-  *{box-sizing:border-box;margin:0;padding:0}
-  :root{--blue:#0F4C81;--accent:#F39C12;--soft:#F5F7FA;--text:#1a1a1a;--muted:#555}
-  body,html{direction:rtl;font-family:'Amiri',serif;color:var(--text);background:transparent}
-  .doc{max-width:860px;margin:0 auto;padding:1.5rem 1rem}
-  .title-block{text-align:center;padding:1.5rem 0 1rem;border-bottom:2px solid var(--blue)}
-  .title-block h1{font-size:26px;font-weight:700;color:var(--blue);line-height:1.5}
-  .title-block h2{font-size:16px;color:var(--accent);margin-top:6px;font-weight:400}
-  .title-block h3{font-size:14px;color:var(--muted);margin-top:4px;font-weight:400}
-  .intro-box{background:var(--soft);border:0.5px solid var(--blue);border-right:4px solid var(--blue);border-radius:6px;padding:1rem 1.2rem;margin:1.2rem 0;font-size:15px;line-height:1.9}
-  .toc{background:#fff;border:0.5px solid #ddd;border-radius:6px;padding:1rem 1.2rem;margin:1rem 0}
-  .toc h4{color:var(--blue);font-size:15px;font-weight:700;margin-bottom:8px;border-bottom:0.5px solid #eee;padding-bottom:6px}
-  .toc ol{padding-right:1.2rem;font-size:14px;line-height:2.2}
-  .toc ol li{color:var(--blue);cursor:default}
-  .toc ol li span{color:var(--text)}
-  section{margin-top:1.6rem}
-  .sec-title{font-size:19px;font-weight:700;color:var(--blue);border-bottom:0.5px solid #c9d8e8;padding-bottom:6px;margin-bottom:0.8rem}
-  .sub-title{font-size:16px;font-weight:700;color:var(--accent);margin:1rem 0 0.5rem}
-  .sub2-title{font-size:14px;font-weight:700;color:var(--blue);margin:0.8rem 0 0.3rem}
-  ul,ol{padding-right:1.4rem;font-size:14px;line-height:2}
-  ul li::marker{color:var(--accent)}
-  ol li::marker{color:var(--blue)}
-  .users-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0.8rem 0}
-  .user-card{background:#fff;border:0.5px solid #ddd;border-top:3px solid var(--blue);border-radius:6px;padding:0.8rem 1rem}
-  .user-card.accent{border-top-color:var(--accent)}
-  .user-card h5{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:6px}
-  .user-card.accent h5{color:var(--accent)}
-  .user-card ul{font-size:13px;padding-right:1rem}
-  .rules-box{background:var(--soft);border-radius:6px;padding:0.8rem 1rem;margin:0.6rem 0}
-  .rules-box ol{font-size:13.5px;line-height:2.1;padding-right:1.3rem}
-  .product-box{background:var(--soft);border:0.5px solid var(--accent);border-right:4px solid var(--accent);border-radius:6px;padding:1rem 1.2rem;margin:0.8rem 0}
-  .product-box h4{color:var(--accent);font-size:15px;font-weight:700;margin-bottom:8px}
-  .product-box ul{font-size:14px}
-  .future-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin:0.8rem 0}
-  .future-tag{background:#EBF3FB;border:0.5px solid #b5d4f4;border-radius:4px;padding:6px 10px;font-size:13px;color:#185FA5;text-align:center}
-  .summary-box{background:var(--soft);border-radius:6px;padding:1rem 1.2rem;margin:1rem 0;font-size:14.5px;line-height:2}
-  .end-line{text-align:center;margin-top:1.5rem;padding-top:1rem;border-top:2px solid var(--blue);font-size:16px;font-weight:700;color:var(--blue)}
-  .chip{display:inline-block;background:#EBF3FB;color:#185FA5;border:0.5px solid #b5d4f4;border-radius:3px;padding:1px 7px;font-size:12px;margin-right:4px}
-  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-  @media(max-width:580px){.users-grid,.two-col{grid-template-columns:1fr}}
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
 
-<div class="doc">
-  <div class="title-block">
-    <h1>تصور نظام إدارة المواعيد والخدمات الطبية</h1>
-    <h2>وثيقة تحليل وظيفي مبسطة</h2>
-    <h3>CodevaSolution</h3>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --blue: #0f4c81;
+      --blue-soft: #ebf3fb;
+      --accent: #f39c12;
+      --accent-soft: #fef6e8;
+      --soft: #f5f7fa;
+      --text: #1a1a1a;
+      --muted: #555;
+      --border: #d8e1ea;
+      --white: #ffffff;
+      --shadow: 0 8px 24px rgba(15, 76, 129, 0.08);
+      --radius: 14px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      direction: rtl;
+      font-family: "Amiri", serif;
+      color: var(--text);
+      background: linear-gradient(to bottom, #f9fbfd, #f3f7fb);
+      line-height: 1.9;
+      overflow-x: hidden;
+      word-break: break-word;
+    }
+
+    img,
+    svg,
+    iframe,
+    video {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .page {
+      width: 100%;
+      padding: 16px;
+    }
+
+    .doc {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--white);
+      border: 1px solid #edf1f5;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 3vw, 36px);
+      overflow: hidden;
+    }
+
+    .title-block {
+      text-align: center;
+      padding: 12px 0 18px;
+      border-bottom: 2px solid var(--blue);
+      margin-bottom: 18px;
+    }
+
+    .title-block h1 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 700;
+      color: var(--blue);
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+
+    .title-block h2 {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--accent);
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+
+    .title-block h3 {
+      font-size: clamp(0.9rem, 1.8vw, 1rem);
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .intro-box,
+    .summary-box,
+    .rules-box,
+    .product-box,
+    .toc {
+      border-radius: var(--radius);
+    }
+
+    .intro-box {
+      background: var(--soft);
+      border: 1px solid var(--border);
+      border-right: 5px solid var(--blue);
+      padding: clamp(14px, 2.5vw, 22px);
+      margin: 18px 0;
+      font-size: clamp(1rem, 2vw, 1.08rem);
+      line-height: 2;
+    }
+
+    .toc {
+      background: var(--white);
+      border: 1px solid #e8edf2;
+      padding: clamp(14px, 2.5vw, 20px);
+      margin: 18px 0;
+    }
+
+    .toc h4 {
+      color: var(--blue);
+      font-size: clamp(1rem, 2vw, 1.1rem);
+      font-weight: 700;
+      margin-bottom: 10px;
+      border-bottom: 1px solid #edf1f4;
+      padding-bottom: 8px;
+    }
+
+    .toc ol {
+      padding-right: 1.2rem;
+      font-size: clamp(0.95rem, 1.8vw, 1rem);
+      line-height: 2.1;
+    }
+
+    .toc li {
+      color: var(--blue);
+    }
+
+    .toc li span {
+      color: var(--text);
+    }
+
+    section {
+      margin-top: 26px;
+    }
+
+    .sec-title {
+      font-size: clamp(1.2rem, 2.4vw, 1.5rem);
+      font-weight: 700;
+      color: var(--blue);
+      border-bottom: 1px solid #c9d8e8;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    .sub-title {
+      font-size: clamp(1.05rem, 2vw, 1.18rem);
+      font-weight: 700;
+      color: var(--accent);
+      margin: 16px 0 8px;
+      line-height: 1.8;
+    }
+
+    .sub2-title {
+      font-size: clamp(0.98rem, 1.8vw, 1.05rem);
+      font-weight: 700;
+      color: var(--blue);
+      margin: 12px 0 6px;
+    }
+
+    p {
+      font-size: clamp(0.98rem, 1.9vw, 1.05rem);
+      line-height: 2;
+    }
+
+    ul,
+    ol {
+      padding-right: 1.35rem;
+      font-size: clamp(0.96rem, 1.8vw, 1rem);
+      line-height: 2;
+    }
+
+    ul li::marker {
+      color: var(--accent);
+    }
+
+    ol li::marker {
+      color: var(--blue);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--blue-soft);
+      color: #185fa5;
+      border: 1px solid #b5d4f4;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      white-space: normal;
+      text-align: center;
+    }
+
+    .version-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .mini-card {
+      min-width: 0;
+      border-radius: 12px;
+      padding: 14px;
+    }
+
+    .mini-card.blue {
+      background: var(--blue-soft);
+      border-right: 4px solid var(--blue);
+    }
+
+    .mini-card.orange {
+      background: var(--accent-soft);
+      border-right: 4px solid var(--accent);
+    }
+
+    .mini-card .card-title {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .mini-card.blue .card-title {
+      color: var(--blue);
+    }
+
+    .mini-card.orange .card-title {
+      color: var(--accent);
+    }
+
+    .mini-card .card-text {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: #333;
+    }
+
+    .users-grid,
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+
+    .user-card {
+      background: var(--white);
+      border: 1px solid #e4e9ef;
+      border-top: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 16px;
+      min-width: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+    }
+
+    .user-card.accent {
+      border-top-color: var(--accent);
+    }
+
+    .user-card h5 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 8px;
+      line-height: 1.8;
+    }
+
+    .user-card.accent h5 {
+      color: var(--accent);
+    }
+
+    .user-card ul {
+      font-size: 0.95rem;
+      padding-right: 1.1rem;
+      line-height: 2;
+    }
+
+    .rules-box,
+    .summary-box {
+      background: var(--soft);
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    .rules-box {
+      border: 1px solid #e4ebf2;
+    }
+
+    .rules-box ol {
+      font-size: 0.96rem;
+      line-height: 2.1;
+      padding-right: 1.2rem;
+    }
+
+    .product-box {
+      background: #fffaf2;
+      border: 1px solid #f4d39a;
+      border-right: 5px solid var(--accent);
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    .product-box h4 {
+      color: var(--accent);
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      line-height: 1.8;
+    }
+
+    .future-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .future-tag {
+      background: var(--blue-soft);
+      border: 1px solid #b5d4f4;
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      color: #185fa5;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .end-line {
+      text-align: center;
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 2px solid var(--blue);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 10px;
+      }
+
+      .doc {
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      .users-grid,
+      .two-col,
+      .version-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .title-block {
+        padding-top: 6px;
+      }
+
+      .chip {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        line-height: 1.85;
+      }
+
+      .doc {
+        padding: 12px;
+      }
+
+      .title-block h1 {
+        line-height: 1.8;
+      }
+
+      .intro-box,
+      .toc,
+      .rules-box,
+      .summary-box,
+      .product-box,
+      .user-card {
+        padding: 12px;
+      }
+
+      ul,
+      ol {
+        padding-right: 1.1rem;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page {
+        padding: 0;
+      }
+
+      .doc {
+        max-width: 100%;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="doc">
+      <div class="title-block">
+        <h1>تصور نظام إدارة المواعيد والخدمات الطبية</h1>
+        <h2>وثيقة تحليل وظيفي مبسطة</h2>
+        <h3>CodevaSolution</h3>
+      </div>
+
+      <div class="intro-box">
+        يهدف هذا المشروع إلى تطوير نظام رقمي لإدارة المواعيد والخدمات الطبية والملف الطبي داخل العيادات والمراكز الصحية.
+        يركز النظام على ثلاثة مستخدمين رئيسيين: المريض، الطبيب، وموظف الاستقبال.
+        ويهدف إلى تحسين تجربة المستخدم، وتنظيم العمل اليومي، وضمان سرية البيانات الطبية.
+      </div>
+
+      <div class="toc">
+        <h4>الفهرس</h4>
+        <ol>
+          <li><span>المنهجية المعتمدة</span></li>
+          <li><span>الأطراف الرئيسية في النظام</span></li>
+          <li><span>النسخة الأولى: الوظائف الأساسية</span></li>
+          <li><span>النسخة الثانية: النسخة القابلة للبيع</span></li>
+          <li><span>القيمة التجارية بعد النسخة الثانية</span></li>
+          <li><span>الرؤية المستقبلية</span></li>
+          <li><span>خلاصة</span></li>
+        </ol>
+      </div>
+
+      <section>
+        <div class="sec-title">١. المنهجية المعتمدة</div>
+        <p>
+          تم اعتماد قاعدة <strong>20/80</strong> في تحليل النظام، أي التركيز على الوظائف التي تقدم أكبر قيمة عملية بأقل تعقيد ممكن.
+          وبناءً على ذلك، تم تقسيم المشروع إلى نسختين أساسيتين:
+        </p>
+
+        <div class="version-grid">
+          <div class="mini-card blue">
+            <div class="card-title">النسخة الأولى</div>
+            <div class="card-text">نسخة أساسية عملية لحل أهم المشاكل اليومية</div>
+          </div>
+
+          <div class="mini-card orange">
+            <div class="card-title">النسخة الثانية</div>
+            <div class="card-text">نسخة أكثر تطورًا تجعل المنتج قابلًا للبيع والاستعمال التجاري</div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-title">٢. الأطراف الرئيسية في النظام</div>
+        <div class="chips">
+          <span class="chip">المريض</span>
+          <span class="chip">الطبيب</span>
+          <span class="chip">موظف الاستقبال</span>
+          <span class="chip">مسؤول النظام</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-title">٣. النسخة الأولى: الوظائف الأساسية</div>
+
+        <div class="sub-title">هدف النسخة الأولى</div>
+        <p>توفير نظام بسيط وآمن لإدارة المواعيد والبيانات الأساسية بين المريض والطبيب والاستقبال.</p>
+
+        <div class="sub-title">الخدمات الأساسية</div>
+        <ul>
+          <li>خدمة المصادقة وإدارة الحسابات</li>
+          <li>خدمة المرضى</li>
+          <li>خدمة الأطباء</li>
+          <li>خدمة المواعيد</li>
+          <li>خدمة الاستقبال</li>
+          <li>خدمة الملف الطبي المبسط</li>
+          <li>لوحات تحكم مبسطة</li>
+        </ul>
+
+        <div class="sub-title">الوظائف حسب المستخدم</div>
+        <div class="users-grid">
+          <div class="user-card">
+            <h5>المريض</h5>
+            <ul>
+              <li>إنشاء حساب</li>
+              <li>تسجيل الدخول</li>
+              <li>عرض الأطباء والتخصصات</li>
+              <li>عرض الخدمات الطبية الأساسية</li>
+              <li>عرض المواعيد المتاحة</li>
+              <li>حجز موعد وإلغاؤه</li>
+              <li>عرض ملفه الشخصي</li>
+            </ul>
+          </div>
+
+          <div class="user-card accent">
+            <h5>الطبيب</h5>
+            <ul>
+              <li>تسجيل الدخول</li>
+              <li>اختيار كلمة المرور عند أول دخول</li>
+              <li>تعديل بعض معلوماته الشخصية</li>
+              <li>عرض مواعيده اليومية</li>
+              <li>عرض المرضى المرتبطين به</li>
+              <li>فتح ملف المريض</li>
+              <li>إضافة ملاحظات طبية</li>
+            </ul>
+          </div>
+
+          <div class="user-card accent">
+            <h5>موظف الاستقبال</h5>
+            <ul>
+              <li>تسجيل الدخول</li>
+              <li>البحث عن المرضى</li>
+              <li>إنشاء موعد للمريض</li>
+              <li>عرض مواعيد اليوم</li>
+              <li>تأكيد حضور المريض</li>
+            </ul>
+          </div>
+
+          <div class="user-card">
+            <h5>مسؤول النظام</h5>
+            <ul>
+              <li>إنشاء حسابات الأطباء</li>
+              <li>إنشاء حسابات موظفي الاستقبال</li>
+              <li>تفعيل أو تعطيل الحسابات</li>
+              <li>إدارة قائمة الأطباء والخدمات</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sub-title">قواعد التسيير</div>
+        <div class="rules-box">
+          <ol>
+            <li>لا يمكن الدخول إلى النظام بدون حساب صالح</li>
+            <li>حساب الطبيب يُنشأ من طرف الإدارة</li>
+            <li>المريض يمكنه إنشاء حسابه بنفسه</li>
+            <li>لا يمكن للمريض رؤية بيانات مريض آخر</li>
+            <li>لا يمكن للطبيب رؤية إلا المرضى المرتبطين به أو المسموح له بهم</li>
+            <li>موظف الاستقبال لا يرى البيانات الطبية الحساسة</li>
+            <li>كل موعد يجب أن يرتبط بطبيب وتاريخ ووقت واضح</li>
+            <li>لا يمكن حجز موعد في فترة ممتلئة</li>
+            <li>كل ملاحظة طبية يجب أن تكون مرتبطة بالطبيب الذي كتبها</li>
+            <li>اسم الطبيب الرسمي لا يغيره إلا مسؤول النظام</li>
+          </ol>
+        </div>
+
+        <div class="sub-title">قيود السرية والأمن</div>
+        <ul>
+          <li>بيانات المريض بيانات حساسة ويجب حمايتها</li>
+          <li>الملف الطبي لا يظهر إلا للمستخدم المخوّل</li>
+          <li>كلمات المرور تُخزن بشكل مشفّر</li>
+          <li>الصلاحيات تختلف حسب الدور</li>
+          <li>يجب حماية الجلسات أو التوكنات</li>
+          <li>يجب منع الوصول غير المصرح به إلى الملفات الطبية</li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="sec-title">٤. النسخة الثانية: النسخة القابلة للبيع</div>
+
+        <div class="sub-title">هدف النسخة الثانية</div>
+        <p>تحويل النظام من أداة تشغيل أساسية إلى منتج احترافي يمكن تقديمه وبيعه للعيادات والمراكز الطبية.</p>
+
+        <div class="sub-title">الخدمات الأساسية</div>
+        <ul>
+          <li>خدمة المواعيد المتقدمة</li>
+          <li>خدمة الخدمات الطبية</li>
+          <li>خدمة الملف الطبي المطور</li>
+          <li>خدمة المدفوعات الأساسية</li>
+          <li>خدمة الإشعارات</li>
+          <li>لوحات تحكم متقدمة</li>
+          <li>إدارة صلاحيات أكثر دقة</li>
+        </ul>
+
+        <div class="sub-title">الوظائف حسب المستخدم</div>
+        <div class="users-grid">
+          <div class="user-card">
+            <h5>المريض</h5>
+            <ul>
+              <li>إدارة الملف الشخصي</li>
+              <li>الحجز حسب الطبيب أو الخدمة</li>
+              <li>رؤية عدد الأماكن المتبقية</li>
+              <li>الدخول إلى قائمة الانتظار</li>
+              <li>متابعة حالة الدفع</li>
+              <li>استقبال إشعارات الموعد</li>
+              <li>عرض تاريخ الزيارات</li>
+            </ul>
+          </div>
+
+          <div class="user-card accent">
+            <h5>الطبيب</h5>
+            <ul>
+              <li>إدارة جدول العمل</li>
+              <li>متابعة المرضى الحاليين والمنتظرين</li>
+              <li>إضافة تشخيص ووصفة وملاحظات</li>
+              <li>رفع مرفقات طبية</li>
+              <li>تحويل المريض لطبيب آخر</li>
+              <li>مشاركة الملف الطبي بصلاحيات</li>
+              <li>عرض إحصائيات العمل اليومية</li>
+            </ul>
+          </div>
+
+          <div class="user-card accent">
+            <h5>موظف الاستقبال</h5>
+            <ul>
+              <li>إدارة المواعيد والحضور</li>
+              <li>إدارة قائمة الانتظار</li>
+              <li>متابعة حالة الدفع</li>
+              <li>متابعة ضغط العمل اليومي</li>
+              <li>توجيه المرضى إلى الخدمة المناسبة</li>
+            </ul>
+          </div>
+
+          <div class="user-card">
+            <h5>الإدارة التشغيلية</h5>
+            <ul>
+              <li>إدارة الخدمات الطبية وأسعارها</li>
+              <li>إدارة الحسابات</li>
+              <li>إدارة السعة الزمنية</li>
+              <li>متابعة التقارير الأساسية</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sub-title">قواعد التسيير</div>
+        <div class="rules-box">
+          <ol>
+            <li>كل خدمة يجب أن ترتبط بسعر ومدة</li>
+            <li>لا يمكن لطبيب تقديم خدمة غير مرتبطة به</li>
+            <li>إذا امتلأت الفترة الزمنية، يمكن نقل المريض إلى قائمة الانتظار</li>
+            <li>كل وصفة أو تقرير يجب أن يحمل اسم الطبيب وتاريخ الإنشاء</li>
+            <li>مشاركة الملف الطبي لا تتم إلا بصلاحيات محددة</li>
+            <li>لا يمكن تعديل حالة الدفع إلا من المستخدم المخول</li>
+            <li>كل تحويل من طبيب إلى آخر يجب تسجيله</li>
+            <li>يجب الاحتفاظ بسجل للتعديلات الحساسة</li>
+          </ol>
+        </div>
+
+        <div class="sub-title">قيود السرية والأمن</div>
+        <ul>
+          <li>تطبيق مبدأ أقل صلاحية ممكنة</li>
+          <li>حماية الملفات الطبية والمرفقات من الوصول المباشر</li>
+          <li>التحقق من الصلاحيات على مستوى كل عملية</li>
+          <li>تسجيل العمليات الحساسة</li>
+          <li>استخدام HTTPS في بيئة الإنتاج</li>
+          <li>تعطيل الحسابات غير النشطة أو المشبوهة عند الحاجة</li>
+        </ul>
+      </section>
+
+      <section>
+        <div class="sec-title">٥. القيمة التجارية بعد النسخة الثانية</div>
+        <div class="product-box">
+          <h4>المنتج — نظام إدارة عيادات ومراكز طبية</h4>
+          <div class="two-col">
+            <ul>
+              <li>إدارة المواعيد</li>
+              <li>إدارة الأطباء</li>
+              <li>إدارة المرضى</li>
+              <li>الملف الطبي</li>
+            </ul>
+            <ul>
+              <li>الخدمات الطبية</li>
+              <li>المدفوعات الأساسية</li>
+              <li>الإشعارات</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sub-title">مناسب بشكل خاص لـ</div>
+        <div class="chips">
+          <span class="chip">العيادات الخاصة</span>
+          <span class="chip">المراكز الطبية</span>
+          <span class="chip">المستشفيات الصغيرة</span>
+          <span class="chip">المجمعات الطبية المتوسطة</span>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-title">٦. الرؤية المستقبلية</div>
+        <div class="future-grid">
+          <div class="future-tag">إدارة المستشفى</div>
+          <div class="future-tag">إدارة الأقسام</div>
+          <div class="future-tag">إدارة المختبر</div>
+          <div class="future-tag">إدارة الأشعة</div>
+          <div class="future-tag">إدارة الصيدلية</div>
+          <div class="future-tag">الفوترة المتقدمة</div>
+          <div class="future-tag">التأمين الصحي</div>
+          <div class="future-tag">الموارد البشرية</div>
+        </div>
+      </section>
+
+      <section>
+        <div class="sec-title">٧. خلاصة</div>
+        <div class="summary-box">
+          تم تقسيم النظام إلى نسختين اعتمادًا على قاعدة 20/80 لضمان التركيز على الوظائف الأكثر قيمة في البداية.<br />
+          تقدم النسخة الأولى أساسًا عمليًا لتشغيل النظام، بينما تجعل النسخة الثانية المنتج أكثر نضجًا وقابلية للبيع.<br />
+          أما الإصدارات القادمة، فستمثل مرحلة التوسع نحو نظام إدارة مستشفى أكثر تكاملًا وشمولًا.
+        </div>
+      </section>
+
+      <div class="end-line">نهاية الوثيقة</div>
+    </div>
   </div>
-
-  <div class="intro-box">
-    يهدف هذا المشروع إلى تطوير نظام رقمي لإدارة المواعيد والخدمات الطبية والملف الطبي داخل العيادات والمراكز الصحية.
-    يركز النظام على ثلاثة مستخدمين رئيسيين: المريض، الطبيب، وموظف الاستقبال.
-    ويهدف إلى تحسين تجربة المستخدم، وتنظيم العمل اليومي، وضمان سرية البيانات الطبية.
-  </div>
-
-  <div class="toc">
-    <h4>الفهرس</h4>
-    <ol>
-      <li><span>المنهجية المعتمدة</span></li>
-      <li><span>الأطراف الرئيسية في النظام</span></li>
-      <li><span>النسخة الأولى: الوظائف الأساسية</span></li>
-      <li><span>النسخة الثانية: النسخة القابلة للبيع</span></li>
-      <li><span>القيمة التجارية بعد النسخة الثانية</span></li>
-      <li><span>الرؤية المستقبلية</span></li>
-      <li><span>خلاصة</span></li>
-    </ol>
-  </div>
-
-  <section>
-    <div class="sec-title">١. المنهجية المعتمدة</div>
-    <p style="font-size:14.5px;line-height:2">
-      تم اعتماد قاعدة <strong>20/80</strong> في تحليل النظام، أي التركيز على الوظائف التي تقدم أكبر قيمة عملية بأقل تعقيد ممكن. وبناءً على ذلك، تم تقسيم المشروع إلى نسختين أساسيتين:
-    </p>
-    <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
-      <div style="flex:1;min-width:200px;background:#EBF3FB;border-right:3px solid var(--blue);border-radius:4px;padding:10px 12px">
-        <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:4px">النسخة الأولى</div>
-        <div style="font-size:13px;color:#333;line-height:1.8">نسخة أساسية عملية لحل أهم المشاكل اليومية</div>
-      </div>
-      <div style="flex:1;min-width:200px;background:#FEF6E8;border-right:3px solid var(--accent);border-radius:4px;padding:10px 12px">
-        <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px">النسخة الثانية</div>
-        <div style="font-size:13px;color:#333;line-height:1.8">نسخة أكثر تطورًا تجعل المنتج قابلًا للبيع والاستعمال التجاري</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-title">٢. الأطراف الرئيسية في النظام</div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px">
-      <span class="chip">المريض</span>
-      <span class="chip">الطبيب</span>
-      <span class="chip">موظف الاستقبال</span>
-      <span class="chip">مسؤول النظام</span>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-title">٣. النسخة الأولى: الوظائف الأساسية</div>
-
-    <div class="sub-title">هدف النسخة الأولى</div>
-    <p style="font-size:14px;line-height:2">توفير نظام بسيط وآمن لإدارة المواعيد والبيانات الأساسية بين المريض والطبيب والاستقبال.</p>
-
-    <div class="sub-title">الخدمات الأساسية</div>
-    <ul>
-      <li>خدمة المصادقة وإدارة الحسابات</li>
-      <li>خدمة المرضى</li>
-      <li>خدمة الأطباء</li>
-      <li>خدمة المواعيد</li>
-      <li>خدمة الاستقبال</li>
-      <li>خدمة الملف الطبي المبسط</li>
-      <li>لوحات تحكم مبسطة</li>
-    </ul>
-
-    <div class="sub-title">الوظائف حسب المستخدم</div>
-    <div class="users-grid">
-      <div class="user-card">
-        <h5>المريض</h5>
-        <ul>
-          <li>إنشاء حساب</li>
-          <li>تسجيل الدخول</li>
-          <li>عرض الأطباء والتخصصات</li>
-          <li>عرض الخدمات الطبية الأساسية</li>
-          <li>عرض المواعيد المتاحة</li>
-          <li>حجز موعد وإلغاؤه</li>
-          <li>عرض ملفه الشخصي</li>
-        </ul>
-      </div>
-      <div class="user-card accent">
-        <h5>الطبيب</h5>
-        <ul>
-          <li>تسجيل الدخول</li>
-          <li>اختيار كلمة المرور عند أول دخول</li>
-          <li>تعديل بعض معلوماته الشخصية</li>
-          <li>عرض مواعيده اليومية</li>
-          <li>عرض المرضى المرتبطين به</li>
-          <li>فتح ملف المريض</li>
-          <li>إضافة ملاحظات طبية</li>
-        </ul>
-      </div>
-      <div class="user-card accent">
-        <h5>موظف الاستقبال</h5>
-        <ul>
-          <li>تسجيل الدخول</li>
-          <li>البحث عن المرضى</li>
-          <li>إنشاء موعد للمريض</li>
-          <li>عرض مواعيد اليوم</li>
-          <li>تأكيد حضور المريض</li>
-        </ul>
-      </div>
-      <div class="user-card">
-        <h5>مسؤول النظام</h5>
-        <ul>
-          <li>إنشاء حسابات الأطباء</li>
-          <li>إنشاء حسابات موظفي الاستقبال</li>
-          <li>تفعيل أو تعطيل الحسابات</li>
-          <li>إدارة قائمة الأطباء والخدمات</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="sub-title">قواعد التسيير</div>
-    <div class="rules-box">
-      <ol>
-        <li>لا يمكن الدخول إلى النظام بدون حساب صالح</li>
-        <li>حساب الطبيب يُنشأ من طرف الإدارة</li>
-        <li>المريض يمكنه إنشاء حسابه بنفسه</li>
-        <li>لا يمكن للمريض رؤية بيانات مريض آخر</li>
-        <li>لا يمكن للطبيب رؤية إلا المرضى المرتبطين به أو المسموح له بهم</li>
-        <li>موظف الاستقبال لا يرى البيانات الطبية الحساسة</li>
-        <li>كل موعد يجب أن يرتبط بطبيب وتاريخ ووقت واضح</li>
-        <li>لا يمكن حجز موعد في فترة ممتلئة</li>
-        <li>كل ملاحظة طبية يجب أن تكون مرتبطة بالطبيب الذي كتبها</li>
-        <li>اسم الطبيب الرسمي لا يغيره إلا مسؤول النظام</li>
-      </ol>
-    </div>
-
-    <div class="sub-title">قيود السرية والأمن</div>
-    <ul>
-      <li>بيانات المريض بيانات حساسة ويجب حمايتها</li>
-      <li>الملف الطبي لا يظهر إلا للمستخدم المخوّل</li>
-      <li>كلمات المرور تُخزن بشكل مشفّر</li>
-      <li>الصلاحيات تختلف حسب الدور</li>
-      <li>يجب حماية الجلسات أو التوكنات</li>
-      <li>يجب منع الوصول غير المصرح به إلى الملفات الطبية</li>
-    </ul>
-  </section>
-
-  <section>
-    <div class="sec-title">٤. النسخة الثانية: النسخة القابلة للبيع</div>
-
-    <div class="sub-title">هدف النسخة الثانية</div>
-    <p style="font-size:14px;line-height:2">تحويل النظام من أداة تشغيل أساسية إلى منتج احترافي يمكن تقديمه وبيعه للعيادات والمراكز الطبية.</p>
-
-    <div class="sub-title">الخدمات الأساسية</div>
-    <ul>
-      <li>خدمة المواعيد المتقدمة</li>
-      <li>خدمة الخدمات الطبية</li>
-      <li>خدمة الملف الطبي المطور</li>
-      <li>خدمة المدفوعات الأساسية</li>
-      <li>خدمة الإشعارات</li>
-      <li>لوحات تحكم متقدمة</li>
-      <li>إدارة صلاحيات أكثر دقة</li>
-    </ul>
-
-    <div class="sub-title">الوظائف حسب المستخدم</div>
-    <div class="users-grid">
-      <div class="user-card">
-        <h5>المريض</h5>
-        <ul>
-          <li>إدارة الملف الشخصي</li>
-          <li>الحجز حسب الطبيب أو الخدمة</li>
-          <li>رؤية عدد الأماكن المتبقية</li>
-          <li>الدخول إلى قائمة الانتظار</li>
-          <li>متابعة حالة الدفع</li>
-          <li>استقبال إشعارات الموعد</li>
-          <li>عرض تاريخ الزيارات</li>
-        </ul>
-      </div>
-      <div class="user-card accent">
-        <h5>الطبيب</h5>
-        <ul>
-          <li>إدارة جدول العمل</li>
-          <li>متابعة المرضى الحاليين والمنتظرين</li>
-          <li>إضافة تشخيص ووصفة وملاحظات</li>
-          <li>رفع مرفقات طبية</li>
-          <li>تحويل المريض لطبيب آخر</li>
-          <li>مشاركة الملف الطبي بصلاحيات</li>
-          <li>عرض إحصائيات العمل اليومية</li>
-        </ul>
-      </div>
-      <div class="user-card accent">
-        <h5>موظف الاستقبال</h5>
-        <ul>
-          <li>إدارة المواعيد والحضور</li>
-          <li>إدارة قائمة الانتظار</li>
-          <li>متابعة حالة الدفع</li>
-          <li>متابعة ضغط العمل اليومي</li>
-          <li>توجيه المرضى إلى الخدمة المناسبة</li>
-        </ul>
-      </div>
-      <div class="user-card">
-        <h5>الإدارة التشغيلية</h5>
-        <ul>
-          <li>إدارة الخدمات الطبية وأسعارها</li>
-          <li>إدارة الحسابات</li>
-          <li>إدارة السعة الزمنية</li>
-          <li>متابعة التقارير الأساسية</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="sub-title">قواعد التسيير</div>
-    <div class="rules-box">
-      <ol>
-        <li>كل خدمة يجب أن ترتبط بسعر ومدة</li>
-        <li>لا يمكن لطبيب تقديم خدمة غير مرتبطة به</li>
-        <li>إذا امتلأت الفترة الزمنية، يمكن نقل المريض إلى قائمة الانتظار</li>
-        <li>كل وصفة أو تقرير يجب أن يحمل اسم الطبيب وتاريخ الإنشاء</li>
-        <li>مشاركة الملف الطبي لا تتم إلا بصلاحيات محددة</li>
-        <li>لا يمكن تعديل حالة الدفع إلا من المستخدم المخول</li>
-        <li>كل تحويل من طبيب إلى آخر يجب تسجيله</li>
-        <li>يجب الاحتفاظ بسجل للتعديلات الحساسة</li>
-      </ol>
-    </div>
-
-    <div class="sub-title">قيود السرية والأمن</div>
-    <ul>
-      <li>تطبيق مبدأ أقل صلاحية ممكنة</li>
-      <li>حماية الملفات الطبية والمرفقات من الوصول المباشر</li>
-      <li>التحقق من الصلاحيات على مستوى كل عملية</li>
-      <li>تسجيل العمليات الحساسة</li>
-      <li>استخدام HTTPS في بيئة الإنتاج</li>
-      <li>تعطيل الحسابات غير النشطة أو المشبوهة عند الحاجة</li>
-    </ul>
-  </section>
-
-  <section>
-    <div class="sec-title">٥. القيمة التجارية بعد النسخة الثانية</div>
-    <div class="product-box">
-      <h4>المنتج — نظام إدارة عيادات ومراكز طبية</h4>
-      <div class="two-col">
-        <ul>
-          <li>إدارة المواعيد</li>
-          <li>إدارة الأطباء</li>
-          <li>إدارة المرضى</li>
-          <li>الملف الطبي</li>
-        </ul>
-        <ul>
-          <li>الخدمات الطبية</li>
-          <li>المدفوعات الأساسية</li>
-          <li>الإشعارات</li>
-        </ul>
-      </div>
-    </div>
-    <p style="font-size:14px;margin-top:8px;margin-bottom:6px">مناسب بشكل خاص لـ:</p>
-    <div style="display:flex;flex-wrap:wrap;gap:8px">
-      <span class="chip">العيادات الخاصة</span>
-      <span class="chip">المراكز الطبية</span>
-      <span class="chip">المستشفيات الصغيرة</span>
-      <span class="chip">المجمعات الطبية المتوسطة</span>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-title">٦. الرؤية المستقبلية</div>
-    <div class="future-grid">
-      <div class="future-tag">إدارة المستشفى</div>
-      <div class="future-tag">إدارة الأقسام</div>
-      <div class="future-tag">إدارة المختبر</div>
-      <div class="future-tag">إدارة الأشعة</div>
-      <div class="future-tag">إدارة الصيدلية</div>
-      <div class="future-tag">الفوترة المتقدمة</div>
-      <div class="future-tag">التأمين الصحي</div>
-      <div class="future-tag">الموارد البشرية</div>
-    </div>
-  </section>
-
-  <section>
-    <div class="sec-title">٧. خلاصة</div>
-    <div class="summary-box">
-      تم تقسيم النظام إلى نسختين اعتمادًا على قاعدة 20/80 لضمان التركيز على الوظائف الأكثر قيمة في البداية.<br>
-      تقدم النسخة الأولى أساسًا عمليًا لتشغيل النظام، بينما تجعل النسخة الثانية المنتج أكثر نضجًا وقابلية للبيع.<br>
-      أما الإصدارات القادمة، فستمثل مرحلة التوسع نحو نظام إدارة مستشفى أكثر تكاملًا وشمولًا.
-    </div>
-  </section>
-
-  <div class="end-line">نهاية الوثيقة</div>
-</div>
+</body>
+</html>
